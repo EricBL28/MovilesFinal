@@ -1,4 +1,7 @@
 <resources>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
     <string name="app_name">Fender</string>
     <string name="email">Email Address</string>
     <string name="password">Password</string>
@@ -46,5 +49,8 @@
     <string name="atras">Atras</string>
     <string name="logout">Log Out</string>
     <string name="calendario">Calendario</string>
+    <string name="imagenusuario">imagenUsuario</string>
+    <string name="usuario">Usuario</string>
+    <string name="button">Button</string>
 
 </resources>
