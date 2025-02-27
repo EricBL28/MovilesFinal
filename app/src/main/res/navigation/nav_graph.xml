@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" app:startDestination="@id/LoginFragment">
+    <fragment
+            android:id="@+id/LoginFragment"
+            android:name="com.example.aplicacionfinal.FragmentLogin"
+
+            android:label="@string/Login"
+
+            tools:layout="@layout/fragment_login" >
+
+        <action android:id="@+id/action_LoginFragment_to_ResgistroFragment"
+                app:destination="@id/ResgistroFragment"/>
+        <action android:id="@+id/action_LoginFragment_to_ScaffolgFragment"
+                app:destination="@id/ScaffolgFragment"/>
+    </fragment>
+
+
+    <fragment
+            android:id="@+id/ResgistroFragment"
+            android:name="com.example.aplicacionfinal.RegistroFragment"
+            android:label="@string/Registro"
+            tools:layout="@layout/fragment_registro">
+
+        <action android:id="@+id/action_ResgistroFragment_to_LoginFragment" app:destination="@id/LoginFragment"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/ScaffolgFragment"
+            android:name="com.example.aplicacionfinal.ScaffoldFragment"
+            android:label="@string/Scaffold"
+            tools:layout="@layout/fragment_scaffold">
+
+        <action android:id="@+id/action_ScaffolgFragment_to_LoginFragment" app:destination="@id/LoginFragment"/>
+    </fragment>
+
+    </navigation>

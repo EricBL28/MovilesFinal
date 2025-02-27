@@ -1,0 +1,8 @@
+<resources>
+    <!-- Tema para dispositivos con Android 12 (API 31) o superior -->
+    <style name="Theme.MyApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Usar el SplashScreen nativo en Android 12 o superior -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/google</item> <!-- Icono del splash -->
+        <item name="windowSplashScreenBackground">@color/white</item> <!-- Fondo del splash -->
+    </style>
+</resources>

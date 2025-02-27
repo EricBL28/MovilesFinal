@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "918370798893",
+    "project_id": "trabajomoviles-43cae",
+    "storage_bucket": "trabajomoviles-43cae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918370798893:android:1c707a1756a8ae2a9dd7a4",
+        "android_client_info": {
+          "package_name": "com.example.aplicacionfinal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4Pd23emGxo4diO5-h212DCmBATTHwOeM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
