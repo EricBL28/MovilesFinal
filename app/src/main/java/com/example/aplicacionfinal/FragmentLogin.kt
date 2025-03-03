@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -22,7 +21,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 class FragmentLogin : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private lateinit var progressBar: ProgressBar
+
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -121,10 +120,8 @@ class FragmentLogin : Fragment() {
 
     // Función para iniciar sesión con email y contraseña
     private fun loginUser(email: String, password: String) {
-        progressBar.visibility = View.VISIBLE
 
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity()) { task ->
-            progressBar.visibility = View.GONE
 
             if (task.isSuccessful) {
                 findNavController().navigate(R.id.action_LoginFragment_to_ScaffolgFragment)

@@ -1,59 +1,95 @@
 package com.example.aplicacionfinal
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.aplicacionfinal.databinding.FragmentItemBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [GuitarraAdapter.newInstance] factory method to
- * create an instance of this fragment.
- */
-class GuitarraAdapter : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class GuitarraAdapter(private var guitarras: MutableList<Guitarra> ) : RecyclerView.Adapter<GuitarraAdapter.GuitarraMonitorViewHolder>() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var itemsOriginal: List<Guitarra> = ArrayList(guitarras)
+    private val auth: FirebaseAuth = Firebase.auth
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuitarraMonitorViewHolder {
+        val binding = FragmentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false
+        )
+        return GuitarraMonitorViewHolder(binding, auth)
+    }
+
+    override fun onBindViewHolder(holder: GuitarraMonitorViewHolder, position: Int) {
+        holder.bind(guitarras[position])
+
+
+    }
+    override fun getItemCount(): Int = guitarras.size
+
+    fun updateList(nuevaLista: List<Guitarra>) {
+        guitarras.clear()
+        guitarras.addAll(nuevaLista)
+        itemsOriginal = ArrayList(nuevaLista) // Guardamos la lista original para filtrar
+        notifyDataSetChanged()
+    }
+
+    //para cargar los monitores
+    class GuitarraMonitorViewHolder(private val binding: FragmentItemBinding ,
+                                    private var auth: FirebaseAuth) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Guitarra) {
+            binding.itemTitle.text = data.nombre
+            binding.itemDescription.text = data.precio
+
+            // Cargar la imagen usando Glide
+            Glide.with(binding.root.context)
+                .load(data.imagen) // URL de la imagen
+                .placeholder(R.drawable.guitarracarga) // Imagen mientras se carga
+                .into(binding.itemImage) // imagen xml
+
+            // Actualizar el ícono de favorito
+            if (data.fav) {
+                binding.favorito.setImageResource(R.drawable.fav_selected)
+            } else {
+                binding.favorito.setImageResource(R.drawable.fav_unselected)
+            }
+
+            // Configurar el clic en el botón de favoritos
+            binding.favorito.setOnClickListener {
+                data.fav = !data.fav
+                if (data.fav) {
+                    binding.favorito.setImageResource(R.drawable.fav_selected)
+                } else {
+                    binding.favorito.setImageResource(R.drawable.fav_unselected)
+                }
+
+                // Actualizar Firestore
+                val db = Firebase.firestore
+                db.collection("guitarras")
+                    .document(data.id.toString())
+                    .update("fav", data.fav)
+                    .addOnSuccessListener {
+                        // Actualizar la lista de favoritos del usuario en Firestore
+                        val usuario = auth.currentUser?.email.toString()
+                        val usuarioRef = db.collection("usuarios").document(usuario)
+
+                        if (data.fav) {
+                            // Añadir a favoritos
+                            usuarioRef.update("fav", FieldValue.arrayUnion(data.id))
+                        } else {
+                            // Eliminar de favoritos
+                            usuarioRef.update("fav", FieldValue.arrayRemove(data.id))
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        println("Error al actualizar favorito: ${exception.message}")
+                    }
+            }
         }
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guitarra_adapter, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GuitarraAdapter.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GuitarraAdapter().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 }
+
+

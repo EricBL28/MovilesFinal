@@ -14,6 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 
 import com.example.aplicacionfinal.databinding.FragmentScaffoldBinding
@@ -59,6 +60,10 @@ class ScaffoldFragment : Fragment() {
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        /* DRAWERLAYOUT */
+        val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_scaffold) as NavHostFragment
+        val navController = navHostFragment.navController
+
         val toggle = ActionBarDrawerToggle(
             requireActivity(), binding.drawerLayout, binding.toolbar,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -72,6 +77,7 @@ class ScaffoldFragment : Fragment() {
                 item ->
             when (item.itemId) {
                 R.id.nav_home -> {
+
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
@@ -95,17 +101,17 @@ class ScaffoldFragment : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bnm_home -> {
-                    // Handle Home navigation
+                    navController.navigate(R.id.listaFragment)
                     true
                 }
 
                 R.id.bnm_dashboard -> {
-                    // Handle Dashboard navigation
+
                     true
                 }
 
                 R.id.bnm_notifications -> {
-                    // Handle Notifications navigation
+                    navController.navigate(R.id.contactoFragment)
                     true
                 }
 

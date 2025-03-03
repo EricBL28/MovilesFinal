@@ -3,31 +3,40 @@
              xmlns:tools="http://schemas.android.com/tools"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_margin="15dp"
+             app:cardCornerRadius="15dp"
              tools:context=".ItemFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/recuadro"
+            android:background="#89E77777"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="169dp">
 
         <!-- ImageView -->
 
         <!-- Floating Action Button -->
         <ImageView
                 android:id="@+id/itemImage"
-                android:layout_width="0dp"
-                android:layout_height="112dp"
+                android:layout_width="139dp"
+                android:layout_height="134dp"
                 android:scaleType="centerCrop"
-
+                app:srcCompat="@drawable/guitarracarga"
+                android:background="#ffff"
+                app:circularflow_defaultRadius="15dp"
                 android:contentDescription="@string/description"
                 tools:contentDescription="Ejemplo de imagen"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/itemTitle"
-                android:layout_marginEnd="8dp" app:layout_constraintVertical_bias="0.0"/>
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:layout_marginEnd="8dp" app:layout_constraintVertical_bias="0.461"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.047"/>
+
+        <!-- Title TextView -->
+
+        <!-- Description TextView -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/favorito"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
@@ -38,27 +47,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
-        <!-- Title TextView -->
-
-        <!-- Description TextView -->
+                app:layout_constraintVertical_bias="0.024" android:layout_marginEnd="8dp"/>
         <TextView
                 android:id="@+id/itemTitle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="122dp"
+                android:layout_height="20dp"
                 android:text="@string/title"
                 tools:text="Título de ejemplo"
-                app:layout_constraintStart_toEndOf="@id/itemImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/favorito"
-                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintHorizontal_bias="0.817"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginTop="60dp" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
         <TextView
                 android:id="@+id/itemDescription"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="147dp"
+                android:layout_height="20dp"
                 android:text="@string/description"
                 tools:text="Descripción de ejemplo"
                 app:layout_constraintStart_toEndOf="@id/itemImage"
@@ -66,7 +70,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="44dp" app:layout_constraintHorizontal_bias="0.0"/>
+                android:layout_marginTop="44dp" app:layout_constraintHorizontal_bias="0.312"/>
+        <TextView
+                android:text="Modelo"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.18" app:layout_constraintHorizontal_bias="0.691"/>
+        <TextView
+                android:text="Precio"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.701" app:layout_constraintVertical_bias="0.65"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
