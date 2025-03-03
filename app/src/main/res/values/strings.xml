@@ -35,7 +35,7 @@
     <string name="nuevacontra">Between 8 and 10 characters</string>
     <string name="nuevocorreo">Pleas, valid email</string>
     <string name="nocontra">Incorrect password</string>
-    <string name="Telefono">123 123 123</string>
+    <string name="Telefono">+34 631 87 21 17</string>
     <string name="correoFender">fender@gmail.com</string>
     <string name="call">call</string>
     <string name="correoContacto">email</string>
@@ -52,5 +52,7 @@
     <string name="imagenusuario">imagenUsuario</string>
     <string name="usuario">Usuario</string>
     <string name="button">Button</string>
+
+    <string name="NOAPP">No hay app </string>
 
 </resources>

@@ -33,13 +33,13 @@
     <string name="nuevacontra">Entre 8 y 10 caracteres</string>
     <string name="nuevocorreo">Por favor, ingrese un correo válido.</string>
     <string name="nocontra">Contraseña inválida</string>
-    <string name="Telefono">123 123 123</string>
+    <string name="Telefono">+34 631 78 21 17</string>
     <string name="correoFender">fender@gmail.com</string>
     <string name="TextoContacto">Contacta con nosotros</string>
     <string name="MapaText">Visitanos</string>
     <string name="correoContacto">Correo Electronico</string>
     <string name="whatsapp">Whatsapp</string>
-    <string name="ubicacion">Ubicacion</string>
+    <string name="ubicacion">Ubicación</string>
     <string name="mapa">mapaImagen</string>
     <string name="call">Llama</string>
     <string name="hello_blank_fragment">Hola</string>
@@ -50,4 +50,7 @@
     <string name="imagenusuario">imagenUsuario</string>
     <string name="usuario">Usuario</string>
     <string name="button">Button</string>
+
+    <string name="NOAPP">No hay app</string>
+
 </resources>
