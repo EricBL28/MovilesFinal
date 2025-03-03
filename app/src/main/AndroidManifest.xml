@@ -33,6 +33,7 @@
             android:roundIcon="@drawable/pngegg__1_"
             android:supportsRtl="true"
             android:theme="@style/Theme.MyApp"
+            android:usesCleartextTraffic="true"
             tools:targetApi="35">
         <activity
                 android:name=".MainActivity"

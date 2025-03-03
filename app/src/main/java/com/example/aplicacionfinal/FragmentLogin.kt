@@ -45,8 +45,7 @@ class FragmentLogin : Fragment() {
             return
         }
 
-        // Inicializa el ProgressBar
-        progressBar = binding.progressBar
+
 
         // Configurar Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

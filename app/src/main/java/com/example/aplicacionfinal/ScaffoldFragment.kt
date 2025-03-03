@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
@@ -30,7 +31,7 @@ class ScaffoldFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentScaffoldBinding.inflate(inflater, container, false)
+        binding = FragmentScaffoldBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -40,6 +41,7 @@ class ScaffoldFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
 
         val menuHost: MenuHost = requireActivity()
+
         menuHost.addMenuProvider(object : MenuProvider {
 
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -48,16 +50,10 @@ class ScaffoldFragment : Fragment() {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
-                    R.id.action_search -> {
-                        // Manejar la selección del item1
+                    R.id.atras -> {
+                        logOut()
                         true
                     }
-
-                    R.id.action_settings -> {
-                        // Manejar la selección del item2
-                        true
-                    }
-
                     else -> false
                 }
             }
@@ -76,15 +72,19 @@ class ScaffoldFragment : Fragment() {
                 item ->
             when (item.itemId) {
                 R.id.nav_home -> {
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
 
                 R.id.nav_dashboard -> {
 
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
 
                 R.id.nav_notifications -> {
+
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
 
@@ -92,7 +92,6 @@ class ScaffoldFragment : Fragment() {
             }
         }
         /* BOTTOM NAVIGATION MENU */
-
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bnm_home -> {
@@ -114,9 +113,6 @@ class ScaffoldFragment : Fragment() {
             }
         }
 
-        binding.scaffoldATRAS.setOnClickListener {
-            logOut()
-        }
     }
 
     private fun logOut() {

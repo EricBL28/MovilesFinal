@@ -7,20 +7,14 @@
         android:id="@+id/drawerLayout"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ScaffoldFragment"
-        android:background="@color/white">
+        android:background="#562727">
 
-    <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/nav_header"
-            app:menu="@menu/drawer"/>
 
     <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF9800"
+            android:background="#DD870B30"
             android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -28,6 +22,7 @@
                 android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
+                    android:background="#7CF4C2D1"
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -39,23 +34,38 @@
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
-        <Button
-                android:text="@string/atras"
-                android:layout_width="164dp"
-                android:layout_height="50dp"
-                android:id="@+id/scaffoldATRAS"/>
+                android:layout_weight="1">
+            <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/nav_host_scaffold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:navGraph="@navigation/nav_graph2"
+                    android:name="androidx.navigation.fragment.NavHostFragment"
+                    tools:context=".MainActivity"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+        </FrameLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:background="#E7F4C2D1"
                 app:menu="@menu/bnm"/>
 
     </LinearLayout>
 
-
+    <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#DDEBA6C9"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/drawer"/>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

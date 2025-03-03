@@ -2,6 +2,16 @@
 <navigation
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools" app:startDestination="@id/LoginFragment">
+        xmlns:tools="http://schemas.android.com/tools"
+        app:startDestination="@id/contactoFragment">
+
+    <fragment
+            android:id="@+id/contactoFragment"
+            android:name="com.example.aplicacionfinal.ContactoFragment"
+            android:label="contacto"
+            tools:layout="@layout/fragment_contacto" >
+
+    </fragment>
+
 
     </navigation>
