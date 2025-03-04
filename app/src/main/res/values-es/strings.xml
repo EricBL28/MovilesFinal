@@ -2,7 +2,7 @@
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
 
-<string name="app_name">My Application</string>
+<string name="app_name">Fender</string>
 <string name="password">Contraseña</string>
 <string name="email">Correo Electrónico</string>
 <string name="Login">Login</string>
@@ -13,7 +13,7 @@
 <string name="Olvidar_Contraseña">¿Olvidaste tu contraseña?</string>
     <string name="Fender">Fender</string>
     <string name="title_activity_favorito">FavoritoActivity</string>
-    <string name="fav">Descripcion</string>
+    <string name="fav">Favorito</string>
     <string name="description">Descripcion</string>
     <string name="title">Titulo</string>
     <string name="imagensdaas">imagenasdas</string>
@@ -30,7 +30,10 @@
     <string name="nocorreo">Invalid email</string>
     <string name="registro">Registro</string>
     <string name="ok">OK</string>
-    <string name="nuevacontra">Entre 8 y 10 caracteres</string>
+    <string name="nuevacontra">Entre 5 y 10 caracteres</string>
+    <string name="contraCoinci">Las contraseñas tienen que coincidir</string>
+
+
     <string name="nuevocorreo">Por favor, ingrese un correo válido.</string>
     <string name="nocontra">Contraseña inválida</string>
     <string name="Telefono">+34 631 78 21 17</string>
@@ -45,7 +48,7 @@
     <string name="hello_blank_fragment">Hola</string>
     <string name="Scaffold">Scaffold</string>
     <string name="atras">Atras</string>
-    <string name="logout">Log Out</string>
+    <string name="logout">Cerrar sesion</string>
     <string name="calendario">Calendario</string>
     <string name="imagenusuario">imagenUsuario</string>
     <string name="usuario">Usuario</string>

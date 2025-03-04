@@ -94,10 +94,10 @@ class FragmentLogin : Fragment() {
         val auth = FirebaseAuth.getInstance() //si no inicio esto aquí, no me inicia sesiñón
 
         val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
-            .setFilterByAuthorizedAccounts(false) //con esto en false ya me deja elegir cuenta
+            .setFilterByAuthorizedAccounts(false)
             .setServerClientId("918370798893-v4n2c03doouvbaqgfpkaarm8eaufe760.apps.googleusercontent.com")//id despues de sha1
             //.setNonce(hashedNonce)
-            .setAutoSelectEnabled(false) //con esto en false no selecciona automáticamente una cuenta de google
+            .setAutoSelectEnabled(false)
             .build()
 
         val request: GetCredentialRequest = GetCredentialRequest.Builder()

@@ -85,7 +85,7 @@ class RegistroFragment : Fragment() {
                 calendar.get(Calendar.MONTH) + 1,
                 calendar.get(Calendar.YEAR))
 
-            //se le aplica el formatro con datos de usuaruio
+            //se le aplica el formato con datos de usuario
             binding.textoFechaSeleccionada.text = fechaFormateada
 
         }
@@ -171,12 +171,12 @@ class RegistroFragment : Fragment() {
             }
     }
 
-    /*de aquí abajo es para la comprobacion de los campos, que sean correctos y qwue no esten vacios*/
+
     private fun validarCredenciales(): Pair<String, String>? {
         //he tenido que añadir binding.root para que me pillase el findViewById
         val usuario = binding.EmailReg.editText?.text.toString().trim()
         val contrasenia = binding.password.editText?.text.toString().trim()
-        val contraseniaRepetir = binding.password.editText?.text.toString().trim()
+        val contraseniaRepetir = binding.password2.editText?.text.toString().trim()
         return when { //compruebo que tengan un formato valido
             !esCorreoValido(usuario) -> {
                 mostrarAlertaCorreoInvalido()
@@ -189,6 +189,11 @@ class RegistroFragment : Fragment() {
                 mostrarAlertaContraseniaInvalida()
                 null
             }
+
+            contrasenia != contraseniaRepetir -> {
+                mostrarAlertaConstrasenaNoIgual()
+                null
+            }
             else -> Pair(usuario, contrasenia)
         }
     }
@@ -199,7 +204,7 @@ class RegistroFragment : Fragment() {
     }
     // Función para validar la contraseña
     private fun esContraseniaValida(contrasenia: String): Boolean {
-        return contrasenia.length in 6..10
+        return contrasenia.length in 4..10
     }
 
     private fun mostrarAlerta(titulo: String, mensaje: String) {
@@ -221,6 +226,13 @@ class RegistroFragment : Fragment() {
         mostrarAlerta(
             titulo = getString(R.string.nocontra),
             mensaje = getString(R.string.nuevacontra)
+        )
+    }
+
+    private fun mostrarAlertaConstrasenaNoIgual() {
+        mostrarAlerta(
+            titulo = "Contrasñeas desigual",
+            mensaje = getString(R.string.contraCoinci)
         )
     }
 }
