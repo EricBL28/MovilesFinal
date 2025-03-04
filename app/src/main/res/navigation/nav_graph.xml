@@ -25,6 +25,7 @@
             tools:layout="@layout/fragment_registro">
 
         <action android:id="@+id/action_ResgistroFragment_to_LoginFragment" app:destination="@id/LoginFragment"/>
+        <action android:id="@+id/action_ResgistroFragment_to_ScaffolgFragment" app:destination="@id/ScaffolgFragment"/>
     </fragment>
 
     <fragment

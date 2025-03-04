@@ -26,6 +26,7 @@
             app:layout_constraintHorizontal_bias="0.983"
             app:layout_constraintVertical_bias="0.125"
             android:contentDescription="@string/Muñeco"/>
+
     <TextView
             android:id="@+id/TextReg"
             android:layout_width="176dp"
@@ -67,6 +68,7 @@
             app:hintTextColor="@color/white"
             app:boxStrokeWidthFocused="2dp"
             app:boxStrokeWidth="2dp"
+            android:inputType="textEmailAddress"
             android:background="#69A6BF8D"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
@@ -78,8 +80,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textColorHint="@color/white"
+                android:inputType="textEmailAddress"
                 android:textColor="#CCCCCC"
                 android:textSize="20sp"/>
 

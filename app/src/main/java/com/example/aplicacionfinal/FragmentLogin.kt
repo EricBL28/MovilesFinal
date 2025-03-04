@@ -1,29 +1,33 @@
 @file:Suppress("DEPRECATION")
 
 package com.example.aplicacionfinal
+
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.credentials.CredentialManager
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialException
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.aplicacionfinal.databinding.FragmentLoginBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class FragmentLogin : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-
+    private lateinit var credentialManager: CredentialManager
     private lateinit var auth: FirebaseAuth
-    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,16 +49,6 @@ class FragmentLogin : Fragment() {
         }
 
 
-
-        // Configurar Google Sign-In
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("trabajomoviles-43cae"
-            )  // Reemplaza con tu Client ID de Firebase
-            .requestEmail()
-            .build()
-
-        googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-
         // Acción al hacer clic en el botón de login
         binding.loginButton.setOnClickListener {
             val email = binding.TextoEmail.text.toString()
@@ -74,49 +68,10 @@ class FragmentLogin : Fragment() {
 
         // Acción para loguear con Google
         binding.googleButton.setOnClickListener {
-            loginGoogle()
+            signInWithGoogle()
         }
     }
 
-    private fun loginGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        launcher.launch(signInIntent)
-    }
-
-    // Manejo del resultado de Google Sign-In
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == android.app.Activity.RESULT_OK) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            try {
-                val account = task.getResult(ApiException::class.java)!!
-                firebaseAuthWithGoogle(account.idToken!!)
-            } catch (e: ApiException) {
-                Log.e("Google Sign-In", "Error al iniciar sesión con Google", e)
-                Toast.makeText(requireContext(), "Error en Google Sign-In", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(requireActivity()) { task ->
-                if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    if (task.result.additionalUserInfo?.isNewUser == true) {
-                        //Usuario nuevo: podemos guardar datos adicionales en Firestore si queremos
-                        Toast.makeText(requireContext(), "Bienvenido, nuevo usuario ${user?.displayName}!", Toast.LENGTH_SHORT).show()
-
-                    } else {
-                        Toast.makeText(requireContext(), "Bienvenido de nuevo, ${user?.displayName}!", Toast.LENGTH_SHORT).show()
-                    }
-                    findNavController().navigate(R.id.action_LoginFragment_to_ScaffolgFragment)
-                } else {
-                    Toast.makeText(requireContext(), "Error autenticando con Firebase", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
 
     // Función para iniciar sesión con email y contraseña
     private fun loginUser(email: String, password: String) {
@@ -126,10 +81,69 @@ class FragmentLogin : Fragment() {
             if (task.isSuccessful) {
                 findNavController().navigate(R.id.action_LoginFragment_to_ScaffolgFragment)
             } else {
-                Toast.makeText(requireContext(), "Error de autenticación: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Error de autenticación: ${task.exception?.message}",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
+
+    private fun signInWithGoogle() {
+        val auth = FirebaseAuth.getInstance() //si no inicio esto aquí, no me inicia sesiñón
+
+        val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
+            .setFilterByAuthorizedAccounts(false) //con esto en false ya me deja elegir cuenta
+            .setServerClientId("918370798893-v4n2c03doouvbaqgfpkaarm8eaufe760.apps.googleusercontent.com")//id despues de sha1
+            //.setNonce(hashedNonce)
+            .setAutoSelectEnabled(false) //con esto en false no selecciona automáticamente una cuenta de google
+            .build()
+
+        val request: GetCredentialRequest = GetCredentialRequest.Builder()
+            .addCredentialOption(googleIdOption)
+            .build()
+
+        lifecycleScope.launch {
+            credentialManager = CredentialManager.create(context = requireContext())
+            try {
+
+                val result = credentialManager.getCredential(context = requireContext(), request = request)
+                val credential = result.credential
+
+                val googleIdTokenCredential = GoogleIdTokenCredential
+                    .createFrom(credential.data)
+
+
+                val googleIdToken = googleIdTokenCredential.idToken
+
+                val firebaseCredential = GoogleAuthProvider.getCredential(googleIdToken, null)
+                val authResult = auth.signInWithCredential(firebaseCredential).await()
+
+                if (authResult != null) {
+                    withContext(Dispatchers.Main)
+                    {
+                        Toast.makeText(requireContext(), "Login exitoso", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_LoginFragment_to_ScaffolgFragment)
+                    }
+
+                } else {
+                    withContext(Dispatchers.Main)
+                    {
+                        Toast.makeText(requireContext(), "Error en el login", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            } catch (e: GetCredentialException) {
+                withContext(Dispatchers.Main)
+                {
+                    Toast.makeText(requireContext(), e.localizedMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
 }
 
 
