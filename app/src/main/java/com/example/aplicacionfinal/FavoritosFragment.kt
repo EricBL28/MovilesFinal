@@ -80,7 +80,7 @@ class FavoritosFragment : Fragment() {
                         document.id.toInt(),
                         document.getString("nombre") ?: "",
                         document.getString("precio") ?: "",
-                        document.getBoolean("fav") == true,
+                        true,
                         document.getString("url") ?: ""
                     )
 

@@ -29,8 +29,8 @@
 
     <TextView
             android:id="@+id/TextReg"
-            android:layout_width="176dp"
-            android:layout_height="62dp"
+            android:layout_width="216dp"
+            android:layout_height="72dp"
             android:text="@string/Registro"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
             android:fontFamily="serif"
             android:typeface="normal"
             android:textColor="#000"
-            app:layout_constraintHorizontal_bias="0.108"/>
+            app:layout_constraintHorizontal_bias="0.102"/>
     <Button
             android:text="@string/google"
             android:layout_width="159dp"
