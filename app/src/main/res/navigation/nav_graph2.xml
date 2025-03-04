@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        app:startDestination="@id/listaFragment">
+        app:startDestination="@id/tasFragment">
 
     <fragment
             android:id="@+id/contactoFragment"
@@ -17,7 +17,23 @@
             android:id="@+id/listaFragment"
             android:name="com.example.aplicacionfinal.ListaFragment"
             android:label="lista"
-            tools:layout="@layout/fragment_contacto" >
+            tools:layout="@layout/fragment_lista" >
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/favoritosFragment"
+            android:name="com.example.aplicacionfinal.FavoritosFragment"
+            android:label="favoritos"
+            tools:layout="@layout/fragment_favoritos" >
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/tasFragment"
+            android:name="com.example.aplicacionfinal.TabsFragment"
+            android:label="Listas"
+            tools:layout="@layout/fragment_tabs" >
 
     </fragment>
 

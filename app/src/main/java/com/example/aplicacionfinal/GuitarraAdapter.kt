@@ -14,7 +14,6 @@ import com.google.firebase.firestore.ktx.firestore
 
 class GuitarraAdapter(private var guitarras: MutableList<Guitarra> ) : RecyclerView.Adapter<GuitarraAdapter.GuitarraMonitorViewHolder>() {
 
-    private var itemsOriginal: List<Guitarra> = ArrayList(guitarras)
     private val auth: FirebaseAuth = Firebase.auth
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GuitarraMonitorViewHolder {
@@ -30,14 +29,14 @@ class GuitarraAdapter(private var guitarras: MutableList<Guitarra> ) : RecyclerV
     }
     override fun getItemCount(): Int = guitarras.size
 
+
     fun updateList(nuevaLista: List<Guitarra>) {
-        guitarras.clear()
-        guitarras.addAll(nuevaLista)
-        itemsOriginal = ArrayList(nuevaLista) // Guardamos la lista original para filtrar
-        notifyDataSetChanged()
+        guitarras = nuevaLista.toMutableList() // Reemplaza la lista sin modificar la referencia
+        notifyItemRangeChanged(0, guitarras.size) // Solo notifica los cambios
     }
 
-    //para cargar los monitores
+
+    //para cargar
     class GuitarraMonitorViewHolder(private val binding: FragmentItemBinding ,
                                     private var auth: FirebaseAuth) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Guitarra) {
@@ -85,7 +84,7 @@ class GuitarraAdapter(private var guitarras: MutableList<Guitarra> ) : RecyclerV
                         }
                     }
                     .addOnFailureListener { exception ->
-                        println("Error al actualizar favorito: ${exception.message}")
+                        println("Error al actualizar favorito: "+exception.message)
                     }
             }
         }

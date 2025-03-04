@@ -12,7 +12,7 @@
             android:id="@+id/imageViewProfile"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:src="@drawable/ic_user"
+            android:src="@drawable/usuario"
             android:layout_gravity="start"
             android:layout_marginStart="16dp"
             android:contentDescription="@string/imagenusuario"

@@ -7,15 +7,26 @@
             <item
                     android:id="@+id/nav_home"
                     android:icon="@drawable/ic_home"
-                    android:title="Home" />
+                    android:title="Guitarras" />
             <item
                     android:id="@+id/nav_dashboard"
-                    android:icon="@drawable/ic_dashboard"
-                    android:title="Dashboard" />
+                    android:icon="@drawable/fav_selected"
+                    android:title="Favoritos" />
             <item
                     android:id="@+id/nav_notifications"
-                    android:icon="@drawable/ic_notifications"
-                    android:title="Notifications" />
+                    android:icon="@drawable/contacto"
+                    android:title="Contacto" />
+
+        </menu>
+    </item>
+    <item android:title="Salir">
+        <menu>
+
+            <item
+                    android:id="@+id/nav_salir"
+                    android:icon="@drawable/cerrarsesion"
+                    android:title="Salir" />
+
 
         </menu>
     </item>

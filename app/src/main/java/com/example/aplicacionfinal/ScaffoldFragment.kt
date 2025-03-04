@@ -8,6 +8,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -18,6 +20,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 
 import com.example.aplicacionfinal.databinding.FragmentScaffoldBinding
+import com.google.firebase.auth.FirebaseAuth
 
 
 class ScaffoldFragment : Fragment() {
@@ -38,6 +41,16 @@ class ScaffoldFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val user = FirebaseAuth.getInstance().currentUser?.email
+        val header = binding.navigationView.getHeaderView(0)
+        val textView: TextView= header.findViewById(R.id.textViewName)
+
+        if (user != null){
+            textView.text = user
+        }else{
+            textView.text = getString(R.string.usuario)
+        }
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
 
@@ -77,19 +90,24 @@ class ScaffoldFragment : Fragment() {
                 item ->
             when (item.itemId) {
                 R.id.nav_home -> {
-
+                    navController.navigate(R.id.listaFragment)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
 
                 R.id.nav_dashboard -> {
-
+                    navController.navigate(R.id.favoritosFragment)
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
 
                 R.id.nav_notifications -> {
-
+                    navController.navigate(R.id.contactoFragment)
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    true
+                }
+                R.id.nav_salir -> {
+                    logOut()
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
@@ -101,12 +119,7 @@ class ScaffoldFragment : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.bnm_home -> {
-                    navController.navigate(R.id.listaFragment)
-                    true
-                }
-
-                R.id.bnm_dashboard -> {
-
+                    navController.navigate(R.id.tasFragment)
                     true
                 }
 
@@ -123,9 +136,12 @@ class ScaffoldFragment : Fragment() {
 
     private fun logOut() {
         // Después de cerrar sesión, redirigir al LoginActivity
-        val firebaseAuth = com.google.firebase.auth.FirebaseAuth.getInstance()
+        val firebaseAuth = FirebaseAuth.getInstance()
         firebaseAuth.signOut()
         findNavController().navigate(R.id.action_ScaffolgFragment_to_LoginFragment)
+
+        Toast.makeText(requireContext(), "Hasta luego ;)", Toast.LENGTH_SHORT).show()
+
     }
 
 

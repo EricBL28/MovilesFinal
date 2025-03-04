@@ -3,7 +3,6 @@ package com.example.aplicacionfinal
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.aplicacionfinal.databinding.FragmentListaBinding
 import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +23,7 @@ class ListaFragment : Fragment() {
     private lateinit var adapter: GuitarraAdapter
     private var guitarras = mutableListOf<Guitarra>()
     val db = Firebase.firestore
-    private lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +48,7 @@ class ListaFragment : Fragment() {
         setupRecyclerView()
         //swipe de recarga
         binding.swipeRefreshLayout.setOnRefreshListener {
-            // Simular una recarga de 2 segundos
+
             Handler(Looper.getMainLooper()).postDelayed({
                 // Recargar los datos
                 obtenerGuitarras()
